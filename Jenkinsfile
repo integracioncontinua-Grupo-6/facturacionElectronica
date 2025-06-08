@@ -1,16 +1,12 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:16'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
+    agent any
 
     environment {
         COMPOSE_FILE = 'docker-compose.yml'
     }
 
     stages {
+
         stage('Clonar el repositorio') {
             steps {
                 git url: 'https://github.com/cesarmoreno6817/facturacionElectronica.git', branch: 'master'
@@ -20,8 +16,9 @@ pipeline {
         stage('Preparar archivos') {
             steps {
                 script {
+                    // Copiar el .env si no existe
                     if (!fileExists('.env')) {
-                        sh 'cp .env.example .env'
+                        bat 'copy .env.example .env'
                     }
                 }
             }
@@ -29,17 +26,17 @@ pipeline {
 
         stage('Instalar dependencias frontend') {
             steps {
-                sh 'npm install && npm run build'
+                bat 'npm install && npm run build'
             }
         }
 
         stage('Levantar contenedores') {
             steps {
-                sh 'docker --version'
-                sh 'docker-compose down'
-                sh 'docker-compose up -d --build'
+                bat 'docker-compose down'
+                bat 'docker-compose up -d --build'
             }
         }
+
     }
 
     post {

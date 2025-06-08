@@ -2,6 +2,7 @@ FROM php:8.2.0-apache
 
 # Establecer el directorio de trabajo
 WORKDIR /var/www/html
+RUN composer install
 
 # Activar mod_rewrite de Apache
 RUN a2enmod rewrite
