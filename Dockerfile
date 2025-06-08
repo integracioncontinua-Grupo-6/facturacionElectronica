@@ -29,9 +29,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copiar los archivos del proyecto
 COPY . /var/www/html
 
-# Copiar el script y darle permisos
-COPY wait-for-db.sh /usr/local/bin/wait-for-db.sh
-RUN chmod +x /usr/local/bin/wait-for-db.sh
+RUN sleep 30
 
 # Configurar Apache para servir desde /public
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
