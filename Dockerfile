@@ -29,6 +29,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copiar los archivos del proyecto
 COPY . /var/www/html
 
+# Ejecutar composer install después de tener composer y el proyecto
+RUN composer install
+
 # Configurar Apache para servir desde /public
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
 

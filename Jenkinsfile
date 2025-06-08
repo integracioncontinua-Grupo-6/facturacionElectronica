@@ -21,7 +21,7 @@ pipeline {
                         bat 'copy .env.example .env'
                     }
                 }
-                bat 'composer install'
+                
             }
         }
 
