@@ -10,7 +10,7 @@ services:
       - .:/var/www/html
     depends_on:
       - db
-    command: ["sh", "-c", "php artisan migrate --force && apache2-foreground"]
+    command: ["sh", "-c", "cp .env.example .env && composer install && php artisan migrate --force && apache2-foreground"]
 
   db:
     image: mysql:latest
