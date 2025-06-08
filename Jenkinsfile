@@ -21,7 +21,6 @@ pipeline {
                         bat 'copy .env.example .env'
                     }
                 }
-                
             }
         }
 
