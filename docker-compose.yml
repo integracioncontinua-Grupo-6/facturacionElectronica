@@ -6,8 +6,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:80"
-    volumes:
-      - .:/var/www/html
     depends_on:
       - db
     command: ["sh", "-c", "php artisan migrate --force && apache2-foreground"]
