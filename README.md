@@ -1,83 +1,59 @@
-# Facturación Electrónica - Laravel + Docker
+# 🧾 Facturación Electrónica - Laravel + Docker + Jenkins
 
-Este proyecto es una aplicación de facturación electrónica desarrollada en Laravel y dockerizada para facilitar su despliegue.
-
-## Requisitos
-
-- [Docker](https://www.docker.com/products/docker-desktop) instalado
-- [Docker Compose](https://docs.docker.com/compose/) (ya viene incluido con Docker Desktop)
+Este proyecto es una aplicación de facturación electrónica desarrollada con **Laravel** y dockerizada para facilitar su despliegue automático a través de **Jenkins**.
 
 ---
 
-## 🚀 Pasos para levantar el entorno
+## ⚙️ Requisitos
 
-### 1. Clonar el repositorio
+- Tener instalado y corriendo:
+  - [Docker](https://www.docker.com/products/docker-desktop)
+  - [Jenkins](https://www.jenkins.io/)
 
-```bash
-git clone https://github.com/cesarmoreno6817/facturacionElectronica.git
-cd facturacionElectronica
-```
+---
 
-### 2. Crear el archivo .env
+## 🚀 Despliegue Automático con Jenkins
 
-Copia el archivo .env.example como .env:
+### 1. Crear un nuevo Pipeline en Jenkins
 
-```bash
-cp .env.example .env
-```
+1. Inicia sesión en Jenkins.
+2. Crea un nuevo proyecto tipo **Pipeline**.
+3. En la sección **Pipeline**, selecciona:
+   - **Definition**: *Pipeline script from SCM*
+   - **SCM**: *Git*
+   - **Repository URL**:  
+     ```
+     https://github.com/cesarmoreno6817/facturacionElectronica.git
+     ```
+   - **Branch**:  
+     ```
+     master
+     ```
+     ![imagen](https://github.com/user-attachments/assets/a950f697-9845-4cfc-837c-f338ebdb6e51)
+     ![imagen](https://github.com/user-attachments/assets/48c76d2b-b2df-4582-85b1-6e712a2770df)
 
-### 3. Levantar los contenedores
+### 2. Ejecutar el Pipeline
 
-```bash
-docker compose up -d --build
-```
+- Haz clic en **"Construir ahora"** (Build Now).
+- Jenkins se encargará de:
+  - Clonar el repositorio.
+  - Instalar dependencias de backend (`composer install`) y frontend (`npm install`).
+  - Construir y levantar los contenedores con Docker.
+  - Ejecutar las migraciones automáticamente.
 
-Esto hará lo siguiente:
+![imagen](https://github.com/user-attachments/assets/587effc4-e9bb-4f13-92f2-3bb85b102783)
+![imagen](https://github.com/user-attachments/assets/4c3176df-bb7e-425c-81d8-3aac3b37390c)
 
-- Construirá la imagen de la aplicación Laravel
+---
 
-- Creará y levantará un contenedor para la base de datos MySQL
+## 🌐 Acceso a la aplicación
 
-- Ejecutará las migraciones automáticamente (si así lo configuraste)
+Una vez finalizado el pipeline, puedes acceder a la aplicación desde tu navegador:
 
-### 4. 🛠️ Acceso a la aplicación
+👉 [http://localhost:8000](http://localhost:8000)
 
-Una vez levantado el entorno, puedes acceder desde tu navegador:
+![imagen](https://github.com/user-attachments/assets/1b2cbd72-634f-4bac-a4aa-2accf29f36ea)
+![imagen](https://github.com/user-attachments/assets/87b1b2a3-b57c-4d52-ae0f-3961b0bd5470)
 
-http://localhost:8000
 
-### 🧪 Comandos útiles
-
-Ver logs del contenedor de la aplicación:
-
-```bash
-docker compose logs -f app
-```
-
-Ingresar a la terminal del contenedor:
-
-```bash
-docker compose exec app bash
-```
-
-Detener los contenedores:
-
-```bash
-docker compose down
-```
-
-Detener y eliminar los contenedores y volúmenes (¡elimina la base de datos!):
-
-    docker compose down -v
-
-### 📦 Estructura de servicios
-
-    app: Contenedor con Laravel + Apache + PHP
-
-    db: Contenedor MySQL 8.0
-
-### 📝 Notas
-
-- Las migraciones se ejecutan automáticamente al levantar los contenedores.
-
-- Asegúrate de que el puerto 3306 o 8000 no esté ocupado por otros servicios locales.
+---
