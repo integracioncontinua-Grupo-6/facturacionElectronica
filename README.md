@@ -7,6 +7,7 @@ Este proyecto es una aplicación de facturación electrónica desarrollada con *
 ## ⚙️ Requisitos
 
 - Tener instalado y corriendo:
+  - [NodeJs](https://nodejs.org/en/download)
   - [Docker](https://www.docker.com/products/docker-desktop)
   - [Jenkins](https://www.jenkins.io/)
 
